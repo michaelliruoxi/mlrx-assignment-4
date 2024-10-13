@@ -1,0 +1,46 @@
+name: Python App Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Check out the repository code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up Python environment
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    # Install dependencies using Makefile
+    - name: Install dependencies
+      run: make install
+
+    # Run the server using Makefile
+    - name: Start Flask server
+      run: |
+        make run &
+        sleep 10  # Sleep to ensure the server has time to start
+
+    # You can add more steps here, such as testing or verifying that the server runs correctly.
+    
+    # Optional: You can curl to check if the server is running.
+    - name: Check if server is running
+      run: curl http://localhost:3000
+
+    # Optional: Stop server gracefully (if needed)
+    - name: Stop server
+      if: always()
+      run: |
+        pkill -f flask
