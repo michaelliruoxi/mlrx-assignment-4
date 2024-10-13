@@ -31,7 +31,7 @@ jobs:
     - name: Start Flask server
       run: |
         make run &
-        sleep 10  # Sleep to ensure the server has time to start
+        sleep 60  # Sleep to ensure the server has time to start
 
     # You can add more steps here, such as testing or verifying that the server runs correctly.
     
