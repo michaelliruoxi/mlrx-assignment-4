@@ -1,3 +1,5 @@
+# Makefile for setting up and running the Flask web app
+
 install:
 	python3 -m venv venv
 	. venv/bin/activate && pip install -r requirements.txt
